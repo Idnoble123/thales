@@ -1,0 +1,1663 @@
+{
+	"info": {
+		"_postman_id": "ee6e8be9-70d7-45eb-b651-02f08e6b97dd",
+		"name": "Outbound Thales-D1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16817480",
+		"_collection_link": "https://grey-satellite-386204.postman.co/workspace/ISW~0c0eee6d-a989-424c-8155-74c60db77c56/collection/16817480-ee6e8be9-70d7-45eb-b651-02f08e6b97dd?action=share&creator=16817480&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Consumer Information - Outbound_Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"firstName\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"lastName\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"countryCode\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"phoneNumber\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"zipCode\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"firstName : to not be empty\", function () {    \r",
+							"    var jsonData = pm.response.json();  \r",
+							"  pm.expect(jsonData.firstName).to.not.be.empty});\r",
+							"\r",
+							"pm.test(\"lastName : to not be empty\", function () {    \r",
+							"    var jsonData = pm.response.json();  \r",
+							"  pm.expect(jsonData.lastName).to.not.be.empty;}\r",
+							");\r",
+							"\r",
+							"pm.test(\"countryCode : to not be empty\", function () {    \r",
+							"    var jsonData = pm.response.json();  \r",
+							"  pm.expect(jsonData.mobilePhoneNumber.countryCode).to.not.be.empty});\r",
+							"\r",
+							"pm.test(\"phoneNumber : to not be empty\", function () {    \r",
+							"    var jsonData = pm.response.json();  \r",
+							"  pm.expect(jsonData.mobilePhoneNumber.phoneNumber).to.not.be.empty;}\r",
+							");\r",
+							"\r",
+							"pm.test(\"zipCode : to not be empty\", function () {    \r",
+							"    var jsonData = pm.response.json();  \r",
+							"  pm.expect(jsonData.residencyAddress.zipCode).to.not.be.empty});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "333",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{base_url}}/banking/d1/v1/issuers/6778888888/consumers/eeww",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"banking",
+						"d1",
+						"v1",
+						"issuers",
+						"6778888888",
+						"consumers",
+						"eeww"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consumer Information - Outbound_EmptyIssuerId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"pm.test(\"Empty issuer id\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "333",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{base_url}}/banking/d1/v1/issuers/consumers/eeww",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"banking",
+						"d1",
+						"v1",
+						"issuers",
+						"consumers",
+						"eeww"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consumer Information - Outbound_InvalidConsumerId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Invalid Consumer id\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"consumerId: must match\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "333",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{base_url}}/banking/d1/v1/issuers/6778888888/consumers/eeww23323312345661234566123456612345661234566123456612346123456612342344",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"banking",
+						"d1",
+						"v1",
+						"issuers",
+						"6778888888",
+						"consumers",
+						"eeww23323312345661234566123456612345661234566123456612346123456612342344"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consumer Information - Outbound_EmptyConsumerId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"pm.test(\"Empty consumer id\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "333",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{base_url}}/banking/d1/v1/issuers/6778888888/consumers/",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"banking",
+						"d1",
+						"v1",
+						"issuers",
+						"6778888888",
+						"consumers",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consumer Information-Outbound_InvalidIssuerId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Invalid issuer id\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"issuerId must be 10 characters long\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "333",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{base_url}}/banking/d1/v1/issuers/6778888/consumers/eeww",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"banking",
+						"d1",
+						"v1",
+						"issuers",
+						"6778888",
+						"consumers",
+						"eeww"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deliver OTP - Outbound Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "4345434",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"otp\": {\r\n    \"value\": \"54544\",\r\n    \"expirationDate\": \"2025-11-14\",\r\n    \"reason\": \"CARD-DIGITIZATION\"\r\n  },\r\n  \"deliveryChannel\": \"SMS\",\r\n  \"digitalCardRequestor\": {\r\n    \"id\": \"23324444444\",\r\n    \"walletId\": \"345577544444\",\r\n    \"name\": \"Ahmad Deedat\",\r\n    \"tspId\": \"12345678901\",\r\n    \"originalDigitalCardRequestorId\": \"12345678901\"\r\n  },\r\n  \"deviceInformation\": {\r\n    \"digitalCardStorageType\": \"TABLET\",\r\n    \"phoneNumber\": \"2348092334433\",\r\n    \"deviceName\": \"Mide Iphone\"\r\n  },\r\n  \"panSuffix\": \"2322\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{base_url}}/banking/d1/v1/issuers/6778888888/consumers/1234568864/otp",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"banking",
+						"d1",
+						"v1",
+						"issuers",
+						"6778888888",
+						"consumers",
+						"1234568864",
+						"otp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deliver OTP_Outbound_EmptyIssuerId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"pm.test(\"Empty issuer id\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "4345434",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"otp\": {\r\n    \"value\": \"54544\",\r\n    \"expirationDate\": \"2025-11-14\",\r\n    \"reason\": \"CARD-DIGITIZATION\"\r\n  },\r\n  \"deliveryChannel\": \"SMS\",\r\n  \"digitalCardRequestor\": {\r\n    \"id\": \"23324444444\",\r\n    \"walletId\": \"345577544444\",\r\n    \"name\": \"Ahmad Deedat\",\r\n    \"tspId\": \"12345678901\",\r\n    \"originalDigitalCardRequestorId\": \"12345678901\"\r\n  },\r\n  \"deviceInformation\": {\r\n    \"digitalCardStorageType\": \"TABLET\",\r\n    \"phoneNumber\": \"2348092334433\",\r\n    \"deviceName\": \"Mide Iphone\"\r\n  },\r\n  \"panSuffix\": \"2322\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{base_url}}/banking/d1/v1/issuers/consumers/1234568864/otp",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"banking",
+						"d1",
+						"v1",
+						"issuers",
+						"consumers",
+						"1234568864",
+						"otp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deliver OTP_Outbound_InvalidConsumerId Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Invalid Consumer id\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"consumer ID should not exceed 64 characters\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "4345434",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"otp\": {\r\n    \"value\": \"54544\",\r\n    \"expirationDate\": \"2025-11-14\",\r\n    \"reason\": \"CARD-DIGITIZATION\"\r\n  },\r\n  \"deliveryChannel\": \"SMS\",\r\n  \"digitalCardRequestor\": {\r\n    \"id\": \"23324444444\",\r\n    \"walletId\": \"345577544444\",\r\n    \"name\": \"Ahmad Deedat\",\r\n    \"tspId\": \"12345678901\",\r\n    \"originalDigitalCardRequestorId\": \"12345678901\"\r\n  },\r\n  \"deviceInformation\": {\r\n    \"digitalCardStorageType\": \"TABLET\",\r\n    \"phoneNumber\": \"2348092334433\",\r\n    \"deviceName\": \"Mide Iphone\"\r\n  },\r\n  \"panSuffix\": \"2322\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{base_url}}/banking/d1/v1/issuers/6778888888/consumers/123456886423323312345661234566123456612345661234566123456612346123456612342344/otp",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"banking",
+						"d1",
+						"v1",
+						"issuers",
+						"6778888888",
+						"consumers",
+						"123456886423323312345661234566123456612345661234566123456612346123456612342344",
+						"otp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deliver OTP_Outbound_EmptyConsumerId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Invalid Consumer id\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"consumer ID should not exceed 64 characters\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "4345434",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"otp\": {\r\n    \"value\": \"54544\",\r\n    \"expirationDate\": \"2025-11-14\",\r\n    \"reason\": \"CARD-DIGITIZATION\"\r\n  },\r\n  \"deliveryChannel\": \"SMS\",\r\n  \"digitalCardRequestor\": {\r\n    \"id\": \"23324444444\",\r\n    \"walletId\": \"345577544444\",\r\n    \"name\": \"Ahmad Deedat\",\r\n    \"tspId\": \"12345678901\",\r\n    \"originalDigitalCardRequestorId\": \"12345678901\"\r\n  },\r\n  \"deviceInformation\": {\r\n    \"digitalCardStorageType\": \"TABLET\",\r\n    \"phoneNumber\": \"2348092334433\",\r\n    \"deviceName\": \"Mide Iphone\"\r\n  },\r\n  \"panSuffix\": \"2322\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{base_url}}/banking/d1/v1/issuers/6778888888/consumers/123456886423323312345661234566123456612345661234566123456612346123456612342344/otp",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"banking",
+						"d1",
+						"v1",
+						"issuers",
+						"6778888888",
+						"consumers",
+						"123456886423323312345661234566123456612345661234566123456612346123456612342344",
+						"otp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deliver OTP_Outbound_InvalidIssuerId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Invalid issuer id\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"issuerId must be 10 characters long\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "4345434",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"otp\": {\r\n    \"value\": \"54544\",\r\n    \"expirationDate\": \"2025-11-14\",\r\n    \"reason\": \"CARD-DIGITIZATION\"\r\n  },\r\n  \"deliveryChannel\": \"SMS\",\r\n  \"digitalCardRequestor\": {\r\n    \"id\": \"23324444444\",\r\n    \"walletId\": \"345577544444\",\r\n    \"name\": \"Ahmad Deedat\",\r\n    \"tspId\": \"12345678901\",\r\n    \"originalDigitalCardRequestorId\": \"12345678901\"\r\n  },\r\n  \"deviceInformation\": {\r\n    \"digitalCardStorageType\": \"TABLET\",\r\n    \"phoneNumber\": \"2348092334433\",\r\n    \"deviceName\": \"Mide Iphone\"\r\n  },\r\n  \"panSuffix\": \"2322\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{base_url}}/banking/d1/v1/issuers/888888/consumers/1234568864/otp",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"banking",
+						"d1",
+						"v1",
+						"issuers",
+						"888888",
+						"consumers",
+						"1234568864",
+						"otp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify Card - Outbound",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "42444",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"encryptedData\": \"754355543\",\r\n  \"cardId\": \"34434\",\r\n  \"cardBin\": \"324344\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{base_url}}/cms/api/v1/issuers/9912345678/cards/credentials",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"cms",
+						"api",
+						"v1",
+						"issuers",
+						"9912345678",
+						"cards",
+						"credentials"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify Card_Outbound_EmptyCardBin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "42444",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"encryptedData\": \"754355543\",\r\n  \"cardId\": \"34434\",\r\n  \"cardBin\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{base_url}}/cms/api/v1/issuers/9912345678/cards/credentials",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"cms",
+						"api",
+						"v1",
+						"issuers",
+						"9912345678",
+						"cards",
+						"credentials"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify Card_Outbound_EmptyCardId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Card ID is required\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "42444",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"encryptedData\": \"754355543\",\r\n  \"cardId\": \"\",\r\n  \"cardBin\": \"324344\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{base_url}}/cms/api/v1/issuers/9912345678/cards/credentials",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"cms",
+						"api",
+						"v1",
+						"issuers",
+						"9912345678",
+						"cards",
+						"credentials"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify Card_Outbound_InvalidIssuerId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Invalid issuer id\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"issuerId must be 10 characters long\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "42444",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"encryptedData\": \"754355543\",\r\n  \"cardId\": \"34434\",\r\n  \"cardBin\": \"324344\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{base_url}}/cms/api/v1/issuers/99123456/cards/credentials",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"cms",
+						"api",
+						"v1",
+						"issuers",
+						"99123456",
+						"cards",
+						"credentials"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify Card_Outbound_EmptyIssuerId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"pm.test(\"Empty issuer id\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "42444",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"encryptedData\": \"754355543\",\r\n  \"cardId\": \"34434\",\r\n  \"cardBin\": \"324344\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{base_url}}/cms/api/v1/issuers/cards/credentials",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"cms",
+						"api",
+						"v1",
+						"issuers",
+						"cards",
+						"credentials"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Card Credentials - Outbound_Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"encryptedData\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"encryptedData : to not be empty\", function () {    \r",
+							"    var jsonData = pm.response.json();  \r",
+							"  pm.expect(jsonData.encryptedData).to.not.be.empty});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "433333",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{base_url}}/cms/api/v1/issuers/1234567890/cards/22221155/credential",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"cms",
+						"api",
+						"v1",
+						"issuers",
+						"1234567890",
+						"cards",
+						"22221155",
+						"credential"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Card Credentials - Outbound_EmptyCardId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"pm.test(\"Empty card id\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "433333",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{base_url}}/cms/api/v1/issuers/1234567890/cards/credential",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"cms",
+						"api",
+						"v1",
+						"issuers",
+						"1234567890",
+						"cards",
+						"credential"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Card Credentials - Outbound_EmptyIssuerId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"pm.test(\"Empty issuer id\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "433333",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{base_url}}/cms/api/v1/issuers/cards/22221155/credentials",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"cms",
+						"api",
+						"v1",
+						"issuers",
+						"cards",
+						"22221155",
+						"credentials"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Card Credentials - Outbound_InvalidIssuerId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"pm.test(\"Invalid issuer id\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "433333",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{base_url}}/cms/api/v1/issuers/12345/cards/22221155/credentials",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"cms",
+						"api",
+						"v1",
+						"issuers",
+						"12345",
+						"cards",
+						"22221155",
+						"credentials"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Card Credentials - Outbound_InvalidCardId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"pm.test(\"Invalid issuer id\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "433333",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{base_url}}/cms/api/v1/issuers/1234567890/cards/2222115523323312345661234566123456612345661234566123456612346123456612342344/credentials",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"cms",
+						"api",
+						"v1",
+						"issuers",
+						"1234567890",
+						"cards",
+						"2222115523323312345661234566123456612345661234566123456612346123456612342344",
+						"credentials"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Notify Card Operation - Outbound_EmptyStatus",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Empty Status\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"status is required\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "233332",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"operationId\": \"783332\",\r\n  \"operation\": \"DIGITIZE\",\r\n  \"digitalCardIds\": [\r\n    \"Manocardss\"\r\n  ],\r\n  \"status\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{base_url}}/notifications/d1/v1/issuers/1234567890/cards/2333/notifications",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"notifications",
+						"d1",
+						"v1",
+						"issuers",
+						"1234567890",
+						"cards",
+						"2333",
+						"notifications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Notify Card Operation - Outbound_Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "233332",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"operationId\": \"783332\",\r\n  \"operation\": \"DIGITIZE\",\r\n  \"digitalCardIds\": [\r\n    \"Manocardss\"\r\n  ],\r\n  \"status\": \"PENDING\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{base_url}}/notifications/d1/v1/issuers/1234567890/cards/2333/notifications",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"notifications",
+						"d1",
+						"v1",
+						"issuers",
+						"1234567890",
+						"cards",
+						"2333",
+						"notifications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Notify Card Operation - Outbound_EmptyOperation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Empty Operation\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"operation is required\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "233332",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"operationId\": \"783332\",\r\n  \"operation\": \"\",\r\n  \"digitalCardIds\": [\r\n    \"Manocardss\"\r\n  ],\r\n  \"status\": \"PENDING\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{base_url}}/notifications/d1/v1/issuers/1234567890/cards/2333/notifications",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"notifications",
+						"d1",
+						"v1",
+						"issuers",
+						"1234567890",
+						"cards",
+						"2333",
+						"notifications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Notify Card Operation - Outbound_EmptyStatus",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Empty Status\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"status is required\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "233332",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"operationId\": \"783332\",\r\n  \"operation\": \"DIGITIZE\",\r\n  \"digitalCardIds\": [\r\n    \"Manocardss\"\r\n  ],\r\n  \"status\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{base_url}}/notifications/d1/v1/issuers/1234567890/cards/2333/notifications",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"notifications",
+						"d1",
+						"v1",
+						"issuers",
+						"1234567890",
+						"cards",
+						"2333",
+						"notifications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Notify Card Operation - Outbound_EmptyIssuerId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"pm.test(\"Empty issuer id\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "233332",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"operationId\": \"783332\",\r\n  \"operation\": \"DIGITIZE\",\r\n  \"digitalCardIds\": [\r\n    \"Manocardss\"\r\n  ],\r\n  \"status\": \"PENDING\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{base_url}}/notifications/d1/v1/issuers/cards/2333/notifications",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"notifications",
+						"d1",
+						"v1",
+						"issuers",
+						"cards",
+						"2333",
+						"notifications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Notify Card Operation - Outbound_InvalidCardId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Invalid issuer id\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Incorrect card ID\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "233332",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"operationId\": \"783332\",\r\n  \"operation\": \"DIGITIZE\",\r\n  \"digitalCardIds\": [\r\n    \"Manocardss\"\r\n  ],\r\n  \"status\": \"PENDING\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{base_url}}/notifications/d1/v1/issuers/1234567890/cards/233323323312345661234566123456612345661234566123456612346123456612342344/notifications",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"notifications",
+						"d1",
+						"v1",
+						"issuers",
+						"1234567890",
+						"cards",
+						"233323323312345661234566123456612345661234566123456612346123456612342344",
+						"notifications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Notify Card Operation - Outbound_EmptyCardId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"pm.test(\"Empty card id\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "233332",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"operationId\": \"783332\",\r\n  \"operation\": \"DIGITIZE\",\r\n  \"digitalCardIds\": [\r\n    \"Manocardss\"\r\n  ],\r\n  \"status\": \"PENDING\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{base_url}}/notifications/d1/v1/issuers/1234567890/cards/notifications",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"notifications",
+						"d1",
+						"v1",
+						"issuers",
+						"1234567890",
+						"cards",
+						"notifications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Notify Card Operation - Outbound_InvalidIssuerId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Invalid issuer id\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"issuerId must be 10 characters long\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "233332",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"operationId\": \"783332\",\r\n  \"operation\": \"DIGITIZE\",\r\n  \"digitalCardIds\": [\r\n    \"Manocardss\"\r\n  ],\r\n  \"status\": \"PENDING\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{base_url}}/notifications/d1/v1/issuers/12345678/cards/23332332331/notifications",
+					"protocol": "https",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"notifications",
+						"d1",
+						"v1",
+						"issuers",
+						"12345678",
+						"cards",
+						"23332332331",
+						"notifications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Notify Digital Card-Outbound_Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "7ghy78878",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"operationId\": \"575757575757575\",\r\n  \"operation\": \"DELETE\",\r\n  \"status\": \"PENDING\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://d1-mock-issuer.k8.isw.la/notifications/d1/v1/issuers/1234567890/digitalCards/8777787887/notifications",
+					"protocol": "https",
+					"host": [
+						"d1-mock-issuer",
+						"k8",
+						"isw",
+						"la"
+					],
+					"path": [
+						"notifications",
+						"d1",
+						"v1",
+						"issuers",
+						"1234567890",
+						"digitalCards",
+						"8777787887",
+						"notifications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Notify Digital Card-Outbound_InvalidDigitalCard",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Invalid issuer id\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"digitalCardId cannot be empty and should not exceed 64 characters\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "7ghy78878",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"operationId\": \"575757575757575\",\r\n  \"operation\": \"DELETE\",\r\n  \"status\": \"PENDING\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://d1-mock-issuer.k8.isw.la/notifications/d1/v1/issuers/1234567890/digitalCards/877778788723323312345661234566123456612345661234566123456612346123456612342344/notifications",
+					"protocol": "https",
+					"host": [
+						"d1-mock-issuer",
+						"k8",
+						"isw",
+						"la"
+					],
+					"path": [
+						"notifications",
+						"d1",
+						"v1",
+						"issuers",
+						"1234567890",
+						"digitalCards",
+						"877778788723323312345661234566123456612345661234566123456612346123456612342344",
+						"notifications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Notify Digital Card-Outbound_InvalidIssuerId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"pm.test(\"Invalid issuer id\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"issuerId must be 10 characters long\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-correlation-id",
+						"value": "7ghy78878",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"operationId\": \"575757575757575\",\r\n  \"operation\": \"DELETE\",\r\n  \"status\": \"PENDING\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://d1-mock-issuer.k8.isw.la/notifications/d1/v1/issuers/12345678/digitalCards/8777787887/notifications",
+					"protocol": "https",
+					"host": [
+						"d1-mock-issuer",
+						"k8",
+						"isw",
+						"la"
+					],
+					"path": [
+						"notifications",
+						"d1",
+						"v1",
+						"issuers",
+						"12345678",
+						"digitalCards",
+						"8777787887",
+						"notifications"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
